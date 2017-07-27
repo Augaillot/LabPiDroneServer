@@ -145,12 +145,22 @@ class drone:
 		self.flytime = 0
 		self.numOfValues = 0
 		self.precision = 3
-		self.rcData = [1500, 1500, 1500, 1500] #order -> roll, pitch, yaw, throttle
+		self.rcData = [1500, 1500, 1500, 1000] #order -> roll, pitch, yaw, throttle
 	
 		self.loopThread = threading.Thread(target=self.loop)
 		if self.ser.isOpen():
-			print("Wait 5 sec for calibrate Multiwii")
-			time.sleep(5)
+			print("Calibration...")
+			time.sleep(1)
+			print("20%")
+			time.sleep(1)
+			print("40%")
+			time.sleep(1)
+			print("60%")
+			time.sleep(1)
+			print("80%")
+			time.sleep(1)
+			print("100%")
+			time.sleep(1)
 			self.loopThread.start()
 
 	def stop(self):
@@ -277,11 +287,24 @@ class drone:
 			#print(str(self.roll) + " " + str(self.pitch) + " " + str(self.yaw) + " " + str(self.throttle))
 
 	def setRC(self):
-		self.sendData(8, self.CMD2CODE["MSP_SET_RAW_RC"], self.rcData)
+		dataRC = readData();
+		self.sendData(8, self.CMD2CODE["MSP_SET_RAW_RC"], dataRC)
 		time.sleep(self.timeMSP)
 		#print self.rcData
 	
-	
+	def readData(self):
+		try:
+			val1 = int(raw_input('Roll (RX) :'))
+			val2 = int(raw_input('Pitch (RY) :'))
+			val3 = int(raw_input('Yaw (LX) :'))
+			val4 = int(raw_input('Throttle (LY) :'))
+		except ValueError:
+			print("Invalid number")
+
+		dataRC = [val1, val2, val3, val4]
+		print(dataRC)
+		return dataRC
+
 	def loop(self):
 		print('success')
 		try:

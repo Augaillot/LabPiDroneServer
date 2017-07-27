@@ -150,7 +150,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 					((message["data"]["right"]["deltaY"]/100)*500+1500),
 					((message["data"]["right"]["deltaX"]/100)*500+1500),
 					((message["data"]["left"]["deltaX"]/100)*500+1500),
-					(message["data"]["left"]["deltaY"]/100)*500+1500,
+					((message["data"]["left"]["deltaY"]/100)*500+1500),
 				]
 				print(board.rcData)
 		

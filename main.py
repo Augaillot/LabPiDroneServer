@@ -17,7 +17,6 @@ import RPi.GPIO as GPIO
 import picamera
 
 import multiwii
-import server
 
 
 class Main():
@@ -25,22 +24,22 @@ class Main():
 		self.hello = "hello"
 		test = "test"
 		self.board = board
-		self.camera = camera
-		self.webServer = server.server(80, self.board, self.camera)
-		self.webServer.start(True)
+		#self.camera = camera
+		#self.webServer = server.server(80, self.board, self.camera)
+		#self.webServer.start(True)
 
 	def stop(self):
-		self.webServer.stop()
+		#self.webServer.stop()
 		self.board.stop()
 
 	
 if __name__ == "__main__":
 	global board
 	board = multiwii.drone('/dev/ttyAMC0')
-	camera = picamera.PiCamera()
-	camera.resolution = (1960, 1080)
-	camera.vflip = True
-	camera.hflip = True
+	#camera = picamera.PiCamera()
+	#camera.resolution = (1960, 1080)
+	#camera.vflip = True
+	#camera.hflip = True
 	
 	start = Main()
 	MainThread = threading.Thread(target=start.start, args=(board, camera))
